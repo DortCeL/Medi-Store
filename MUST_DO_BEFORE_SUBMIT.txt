@@ -1,0 +1,4 @@
+1. JWT secret ta .env theke nite hobe. login er shomoy use hoise sign korte
+
+2. res.cookie("token", ..., {secure: true} )
+    false ase true kore dite hobe production er shomoy

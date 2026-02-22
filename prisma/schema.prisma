@@ -1,0 +1,115 @@
+generator client {
+  provider = "prisma-client"
+  output   = "../generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+enum Role {
+  ADMIN
+  CUSTOMER
+  SELLER
+}
+
+enum Status {
+  ACTIVE
+  SUSPENDED
+}
+
+model User {
+  id       String @id @default(uuid())
+  email    String @unique
+  name     String
+  password String
+  role     Role
+  status   Status @default(ACTIVE)
+
+  createdAt DateTime   @default(now())
+  updatedAt DateTime   @updatedAt
+  medicines Medicine[]
+  orders    Order[]
+  reviews   Review[]
+
+  @@index([status])
+  @@map("users")
+}
+
+model Category {
+  id        String     @id @default(uuid())
+  name      String     @unique
+  medicines Medicine[]
+}
+
+model Medicine {
+  id           String  @id @default(uuid())
+  name         String
+  description  String
+  price        Float
+  stock        Int
+  manufacturer String
+  image        String?
+
+  sellerId String
+  seller   User   @relation(fields: [sellerId], references: [id])
+
+  categoryId String
+  category   Category @relation(fields: [categoryId], references: [id])
+
+  reviews    Review[]
+  orderItems OrderItem[]
+
+  createdAt DateTime @default(now())
+}
+
+model Order {
+  id         String @id @default(uuid())
+  customerId String
+  customer   User   @relation(fields: [customerId], references: [id])
+
+  status      OrderStatus @default(PLACED)
+  address     String
+  totalAmount Float
+
+  orderItems OrderItem[]
+
+  createdAt DateTime @default(now())
+}
+
+enum OrderStatus {
+  PLACED
+  PROCESSING
+  SHIPPED
+  DELIVERED
+  CANCELLED
+}
+
+model OrderItem {
+  id String @id @default(uuid())
+
+  orderId String
+  order   Order  @relation(fields: [orderId], references: [id])
+
+  medicineId String
+  medicine   Medicine @relation(fields: [medicineId], references: [id])
+
+  quantity Int
+  price    Float
+}
+
+model Review {
+  id      String @id @default(uuid())
+  rating  Int
+  comment String
+
+  userId String
+  user   User   @relation(fields: [userId], references: [id])
+
+  medicineId String
+  medicine   Medicine @relation(fields: [medicineId], references: [id])
+
+  createdAt DateTime @default(now())
+
+  @@unique([userId, medicineId]) // One review per medicine per user
+}
