@@ -4,7 +4,6 @@ import { prisma } from "../lib/prisma"
 import { UserRole } from "../types/types"
 
 const auth = (...roles: UserRole[]) => {
-    console.log("roles", roles)
     return async (req: Request, res: Response, next: NextFunction) => {
         try {
             // does token exist

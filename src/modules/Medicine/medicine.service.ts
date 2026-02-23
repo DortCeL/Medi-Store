@@ -36,6 +36,9 @@ const createMedicineIntoDB = async (
     return result
 }
 
+const getAllMedicine = async (payload: CreateMedicineDTO, userId: string) => {}
+
 export const MedicineService = {
     createMedicineIntoDB,
+    getAllMedicine,
 }
