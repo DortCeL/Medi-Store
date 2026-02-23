@@ -1,4 +1,6 @@
-1. JWT secret ta .env theke nite hobe. login er shomoy use hoise sign korte
+1. JWT secret ta .env theke nite hobe. login er shomoy use hoise sign korte, also auth.ts middleware e use hoise
 
-2. res.cookie("token", ..., {secure: true} )
+2. auth.ts e bearer token use korte hobe instead of normal authorization
+
+3. res.cookie("token", ..., {secure: true} )
     false ase true kore dite hobe production er shomoy

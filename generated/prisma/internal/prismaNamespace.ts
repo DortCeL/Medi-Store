@@ -923,7 +923,6 @@ export const MedicineScalarFieldEnum = {
   manufacturer: 'manufacturer',
   image: 'image',
   sellerId: 'sellerId',
-  categoryId: 'categoryId',
   createdAt: 'createdAt'
 } as const
 
@@ -945,7 +944,6 @@ export type OrderScalarFieldEnum = (typeof OrderScalarFieldEnum)[keyof typeof Or
 export const OrderItemScalarFieldEnum = {
   id: 'id',
   orderId: 'orderId',
-  medicineId: 'medicineId',
   quantity: 'quantity',
   price: 'price'
 } as const
@@ -958,7 +956,6 @@ export const ReviewScalarFieldEnum = {
   rating: 'rating',
   comment: 'comment',
   userId: 'userId',
-  medicineId: 'medicineId',
   createdAt: 'createdAt'
 } as const
 
@@ -979,14 +976,6 @@ export const QueryMode = {
 } as const
 
 export type QueryMode = (typeof QueryMode)[keyof typeof QueryMode]
-
-
-export const NullsOrder = {
-  first: 'first',
-  last: 'last'
-} as const
-
-export type NullsOrder = (typeof NullsOrder)[keyof typeof NullsOrder]
 
 
 
